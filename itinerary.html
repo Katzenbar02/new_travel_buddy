@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plan Your Itinerary</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <!-- Leaflet Routing Machine CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css">
+</head>
+<body>
+  <header>
+    <h1>Custom Itinerary Planning</h1>
+    <nav>
+      <ul>
+        <li><a href="awesome-places.html">Awesome Places</a></li>
+        <li><a href="itinerary.html">Plan Itinerary</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Select Destinations</h2>
+      <div id="destinationsList">
+        <!-- Checkboxes will be populated here -->
+      </div>
+      <button id="optimizeBtn">Optimize Route</button>
+      <button id="saveBtn">Save Itinerary</button>
+    </section>
+    <section>
+      <h2>Your Itinerary on Map</h2>
+      <div id="itineraryMap" style="height:500px; width:100%;"></div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Travel Buddy</p>
+  </footer>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Leaflet Routing Machine -->
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  <script src="itinerary.js"></script>
+</body>
+</html>

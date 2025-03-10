@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Itineraries - Travel Buddy</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>My Itineraries</h1>
+    <nav>
+      <ul>
+         <li><a href="itinerary.html">Plan Itinerary</a></li>
+         <li><a href="login.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+       <h2>Create a New Itinerary</h2>
+       <form id="itineraryForm">
+          <label for="itineraryName">Itinerary Name:</label>
+          <input type="text" id="itineraryName" required>
+          <label for="destinations">Destination IDs (comma separated):</label>
+          <input type="text" id="destinations" placeholder="e.g., 606d...,606d...,606d...">
+          <button type="submit">Create Itinerary</button>
+       </form>
+    </section>
+    <section>
+       <h2>Your Itineraries</h2>
+       <div id="itineraryList">
+         <!-- Itineraries will be displayed here -->
+       </div>
+    </section>
+  </main>
+  <script src="itinerary-management.js"></script>
+</body>
+</html>

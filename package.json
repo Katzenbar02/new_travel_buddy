@@ -1,0 +1,18 @@
+{
+  "name": "new_travel_buddy",
+  "version": "1.0.0",
+  "description": "Travel Buddy - 10 Awesome Places near Rexburg",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^6.13.8"
+  }
+}

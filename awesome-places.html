@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Awesome Places Near Rexburg</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+</head>
+<body>
+  <header>
+    <h1>10 Awesome Places Near Rexburg</h1>
+    <nav>
+      <ul>
+        <li><a href="awesome-places.html">Awesome Places</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <select id="placeSelect">
+        <option value="">-- Select a Place --</option>
+      </select>
+      <button id="showPlaceBtn">Show on Map</button>
+    </section>
+    <section>
+      <div id="map" style="height: 500px; width: 100%;"></div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Travel Buddy</p>
+  </footer>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="awesome-places.js"></script>
+</body>
+</html>
