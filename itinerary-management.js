@@ -86,4 +86,26 @@ async function deleteItinerary(id) {
   }
 }
 
+function displayItineraries(itineraries) {
+  const container = document.getElementById("itineraryList");
+  container.innerHTML = "";
+  itineraries.forEach(itinerary => {
+    const div = document.createElement("div");
+    div.classList.add("itinerary-item");
+    div.innerHTML = `
+      <h3>${itinerary.name}</h3>
+      <p>Destinations: ${itinerary.destinations.map(dest => dest.name).join(", ")}</p>
+      <button onclick="deleteItinerary('${itinerary._id}')">Delete</button>
+      <button onclick="shareItinerary('${itinerary._id}')">Share</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function shareItinerary(itineraryId) {
+  const shareLink = `${window.location.origin}/public-itinerary.html?id=${itineraryId}`;
+  window.prompt("Share this itinerary link:", shareLink);
+}
+
+
 window.addEventListener("load", loadItineraries);

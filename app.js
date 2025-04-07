@@ -222,3 +222,35 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// In app.js – add this new endpoint
+
+app.post('/destinations/custom', authenticateToken, async (req, res) => {
+  const { name, description, pictures, location } = req.body;
+  // Basic validation (you may want to add more robust validation)
+  if (!name || !description || !pictures || pictures.length !== 3 || !location || !location.coordinates) {
+    return res.status(400).json({ error: 'Invalid input. Please provide name, description, 3 pictures, and location coordinates.' });
+  }
+  try {
+    const newDestination = new Destination({ name, description, pictures, location });
+    await newDestination.save();
+    // Optionally, if using Socket.io, emit an event here
+    res.status(201).json({ message: 'Custom destination submitted!', destination: newDestination });
+  } catch (err) {
+    console.error('Error submitting custom destination:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Public endpoint to retrieve an itinerary by ID without authentication
+app.get('/public/itineraries/:id', async (req, res) => {
+  try {
+    const itinerary = await Itinerary.findById(req.params.id).populate('destinations');
+    if (!itinerary) {
+      return res.status(404).json({ error: 'Itinerary not found' });
+    }
+    res.json(itinerary);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
