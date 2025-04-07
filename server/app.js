@@ -254,3 +254,29 @@ app.get('/public/itineraries/:id', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// GET profile: Returns user's email
+app.get('/profile', authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("email");
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PUT profile: Allows user to update password (or other fields if needed)
+app.put('/profile', authenticateToken, async (req, res) => {
+  const updates = req.body;
+  try {
+    if (updates.password) {
+       updates.password = await bcrypt.hash(updates.password, 10);
+    }
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, updates, { new: true });
+    res.json({ message: "Profile updated", user: updatedUser });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+

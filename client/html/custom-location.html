@@ -3,54 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <title>Submit Custom Location - Travel Buddy</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- Optionally include Bootstrap for styling -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-     <a class="navbar-brand" href="awesome-places.html">Travel Buddy</a>
-     <div class="collapse navbar-collapse">
-       <ul class="navbar-nav mr-auto">
+    <a class="navbar-brand" href="awesome-places.html">Travel Buddy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCustom" aria-controls="navbarCustom" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCustom">
+      <ul class="navbar-nav ml-auto">
          <li class="nav-item"><a class="nav-link" href="itinerary-management.html">My Itineraries</a></li>
          <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
-       </ul>
-     </div>
+      </ul>
+    </div>
   </nav>
+
+  <!-- Custom Location Form -->
   <div class="container mt-5">
-    <h1>Submit a Custom Location</h1>
-    <form id="customLocationForm">
-       <div class="form-group">
+    <h1 class="text-center">Submit a Custom Location</h1>
+    <form id="customLocationForm" class="mt-4">
+      <div class="form-group">
          <label for="name">Location Name:</label>
          <input type="text" class="form-control" id="name" placeholder="Enter location name" required>
-       </div>
-       <div class="form-group">
+      </div>
+      <div class="form-group">
          <label for="description">Description:</label>
          <textarea class="form-control" id="description" placeholder="Enter a description" required></textarea>
-       </div>
-       <div class="form-group">
+      </div>
+      <div class="form-group">
          <label for="picture1">Picture URL 1:</label>
          <input type="text" class="form-control" id="picture1" placeholder="Enter picture URL" required>
-       </div>
-       <div class="form-group">
+      </div>
+      <div class="form-group">
          <label for="picture2">Picture URL 2:</label>
          <input type="text" class="form-control" id="picture2" placeholder="Enter picture URL" required>
-       </div>
-       <div class="form-group">
+      </div>
+      <div class="form-group">
          <label for="picture3">Picture URL 3:</label>
          <input type="text" class="form-control" id="picture3" placeholder="Enter picture URL" required>
-       </div>
-       <div class="form-group">
+      </div>
+      <div class="form-group">
          <label for="longitude">Longitude:</label>
          <input type="number" class="form-control" id="longitude" placeholder="Enter longitude" step="any" required>
-       </div>
-       <div class="form-group">
+      </div>
+      <div class="form-group">
          <label for="latitude">Latitude:</label>
          <input type="number" class="form-control" id="latitude" placeholder="Enter latitude" step="any" required>
-       </div>
-       <button type="submit" class="btn btn-primary">Submit Location</button>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Submit Location</button>
     </form>
   </div>
-  <script src="custom-location.js"></script>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3 mt-4">
+    <p>&copy; 2025 Travel Buddy</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="../js/custom-location.js"></script>
 </body>
 </html>
