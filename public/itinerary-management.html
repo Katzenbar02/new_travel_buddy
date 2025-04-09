@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Itineraries - Travel Buddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="awesome-places.html">Travel Buddy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarManagement" aria-controls="navbarManagement" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarManagement">
+      <ul class="navbar-nav ml-auto">
+         <li class="nav-item"><a class="nav-link" href="itinerary.html">Plan Itinerary</a></li>
+         <li class="nav-item"><a class="nav-link" href="login.html">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container mt-4">
+    <h1 class="text-center">My Itineraries</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Create a New Itinerary</h2>
+        <form id="itineraryForm">
+          <div class="form-group">
+            <label for="itineraryName">Itinerary Name:</label>
+            <input type="text" id="itineraryName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="destinations">Destination IDs (comma separated):</label>
+            <input type="text" id="destinations" class="form-control" placeholder="e.g., 606d...,606d...,606d...">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Create Itinerary</button>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h2>Your Itineraries</h2>
+        <div id="itineraryList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3 mt-4">
+    <p>&copy; 2025 Travel Buddy</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="js/itinerary-management.js"></script>
+</body>
+</html>

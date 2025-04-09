@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plan Your Itinerary - Travel Buddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <!-- Leaflet Routing Machine CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="awesome-places.html">Travel Buddy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarItinerary" aria-controls="navbarItinerary" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarItinerary">
+      <ul class="navbar-nav ml-auto">
+         <li class="nav-item"><a class="nav-link" href="itinerary-management.html">My Itineraries</a></li>
+         <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container mt-4">
+    <h1 class="text-center">Plan Your Itinerary</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Select Destinations</h2>
+        <div id="destinationsList" class="mb-3"></div>
+        <button id="optimizeBtn" class="btn btn-primary btn-block">Optimize Route</button>
+        <button id="saveBtn" class="btn btn-secondary btn-block">Save Itinerary</button>
+      </div>
+      <div class="col-md-6">
+        <h2>Your Itinerary on Map</h2>
+        <div id="itineraryMap" style="height:500px; width:100%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3 mt-4">
+    <p>&copy; 2025 Travel Buddy</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Leaflet JS and Leaflet Routing Machine -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  <script src="js/itinerary.js"></script>
+</body>
+</html>
