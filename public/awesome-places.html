@@ -8,10 +8,10 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <!-- Navbar -->
+  <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="awesome-places.html">Travel Buddy</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPlaces" aria-controls="navbarPlaces" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,9 +25,47 @@
     </div>
   </nav>
 
+  <!-- Filter Section -->
+  <div class="container my-4">
+    <h3>Filter Destinations</h3>
+    <div class="row">
+      <!-- Activity Type Filter -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="filterType">Activity Type:</label>
+          <select id="filterType" class="form-control">
+            <option value="">All</option>
+            <option value="hiking">Hiking</option>
+            <option value="water sports">Water Sports</option>
+            <option value="cultural">Cultural</option>
+          </select>
+        </div>
+      </div>
+      <!-- Proximity Filters -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="userLat">Your Latitude:</label>
+          <input type="number" step="any" id="userLat" class="form-control" placeholder="e.g. 43.6">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="userLng">Your Longitude:</label>
+          <input type="number" step="any" id="userLng" class="form-control" placeholder="e.g. -116.2">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="maxDistance">Max Distance (meters):</label>
+          <input type="number" id="maxDistance" class="form-control" placeholder="e.g. 50000">
+        </div>
+      </div>
+    </div>
+    <button id="filterBtn" class="btn btn-primary">Apply Filters</button>
+  </div>
+
   <!-- Main Content -->
   <div class="container mt-4">
-    <h1 class="text-center">10 Awesome Places Near Rexburg</h1>
     <div class="row">
       <div class="col-md-6">
         <select id="placeSelect" class="form-control mb-3">

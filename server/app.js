@@ -9,15 +9,15 @@ const helmet = require('helmet');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+// Create the Express app
 const app = express();
 
-// Middleware setup
+// Middlewares
 app.use(express.json());
 app.use(cors());
 
-// Use Helmet for security
+// Use Helmet and set a loose Content Security Policy so that external scripts/styles load
 app.use(helmet());
-
 app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
@@ -40,7 +40,6 @@ app.use(
         "https://cdn.jsdelivr.net",
         "https://unpkg.com"
       ],
-      // IMPORTANT: Add https://*.tile.openstreetmap.org here
       imgSrc: [
         "'self'",
         "data:",
@@ -48,7 +47,6 @@ app.use(
         "https://unpkg.com",
         "https://router.project-osrm.org",
         "https://cdn.jsdelivr.net",
-        // The key addition:
         "https://*.tile.openstreetmap.org"
       ],
       connectSrc: [
@@ -71,12 +69,10 @@ app.use(
   })
 );
 
-
-// Serve static files from the "public" folder.
-// Ensure your folder structure is such that "public" is one level up from "server"
+// Serve static files from the "public" folder (assuming your "public" folder is one level up from "server")
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Set up the secret key for JWT (use environment variable in production)
+// Use environment variable for JWT secret (or fallback for development)
 const SECRET_KEY = process.env.JWT_SECRET || 'some_secret_key';
 
 // Connect to MongoDB
@@ -84,18 +80,18 @@ mongoose.connect('mongodb://localhost:27017/travelbuddy', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error(err));
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error(err));
 
 // -----------------------------
 // Mongoose Models
 // -----------------------------
 
-// Updated Destination Schema with a new "category" field:
+// Destination Model (updated with a "category" field for filtering)
 const DestinationSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
-  category: { type: String },  // e.g. "hiking", "water sports", "cultural"
+  category: { type: String }, // e.g., "hiking", "water sports", "cultural"
   pictures: {
     type: [String],
     required: true,
@@ -136,8 +132,8 @@ const Itinerary = mongoose.model('Itinerary', ItinerarySchema);
 // JWT Authentication Middleware
 // -----------------------------
 function authenticateToken(req, res, next) {
-  // Expect header: "Authorization: Bearer <token>"
   const authHeader = req.headers['authorization'];
+  // Expect "Bearer <token>"
   const token = authHeader && authHeader.split(' ')[1];
   if (!token) return res.status(401).json({ error: 'No token provided' });
   jwt.verify(token, SECRET_KEY, (err, decoded) => {
@@ -173,7 +169,6 @@ app.post('/login', async (req, res) => {
     if (!user) return res.status(401).json({ error: 'Invalid email or password.' });
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(401).json({ error: 'Invalid email or password.' });
-
     const token = jwt.sign({ id: user._id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
     return res.json({ token });
   } catch (err) {
@@ -182,10 +177,35 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Get Destinations (Public)
+// GET /destinations with advanced filtering
+// Allows query parameters: ?type=<category>&lat=<lat>&lng=<lng>&maxDistance=<meters>
 app.get('/destinations', async (req, res) => {
   try {
-    const destinations = await Destination.find({});
+    let filters = {};
+
+    // Filter by category (if provided)
+    if (req.query.type) {
+      filters.category = req.query.type;
+    }
+
+    // Filter by proximity if lat, lng, and maxDistance are provided
+    if (req.query.lat && req.query.lng && req.query.maxDistance) {
+      const lat = parseFloat(req.query.lat);
+      const lng = parseFloat(req.query.lng);
+      const maxDistance = parseFloat(req.query.maxDistance);
+      filters.location = {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [lng, lat]
+          },
+          $maxDistance: maxDistance
+        }
+      };
+    }
+
+    // (You could add additional filters like minRating here if you add that feature.)
+    const destinations = await Destination.find(filters);
     return res.json(destinations);
   } catch (err) {
     console.error('Destinations error:', err);
@@ -210,6 +230,7 @@ app.post('/destinations/custom', authenticateToken, async (req, res) => {
 });
 
 // Itinerary Endpoints (Protected)
+
 // Create an Itinerary
 app.post('/itineraries', authenticateToken, async (req, res) => {
   const { name, destinations: destIds } = req.body;
@@ -285,7 +306,6 @@ app.get('/public/itineraries/:id', async (req, res) => {
 // Get Profile Information (Protected)
 app.get('/profile', authenticateToken, async (req, res) => {
   try {
-    // Return the user's email; expand as needed
     const user = await User.findById(req.user.id).select("email");
     if (!user) return res.status(404).json({ error: "User not found" });
     res.json(user);
@@ -295,7 +315,6 @@ app.get('/profile', authenticateToken, async (req, res) => {
 });
 
 // Update Profile Information (Protected)
-// For example, updating the password (and/or other fields)
 app.put('/profile', authenticateToken, async (req, res) => {
   const updates = req.body;
   try {
@@ -309,8 +328,8 @@ app.put('/profile', authenticateToken, async (req, res) => {
   }
 });
 
-// Forgot Password Endpoint (for requesting a reset)
-// In production, you'd email the token; here, we return it for testing
+// Forgot Password Endpoint (for requesting a password reset)
+// In production, this token should be emailed; here it is returned for testing.
 app.post('/forgot', async (req, res) => {
   const { email } = req.body;
   try {
